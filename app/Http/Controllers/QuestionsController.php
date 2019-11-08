@@ -57,7 +57,9 @@ class QuestionsController extends Controller
      */
     public function store(StoreQuestionsRequest $request)
     {
-
+        
+        try
+        {
         $question = Question::create($request->all());
 
         foreach ($request->input() as $key => $value) {
@@ -70,7 +72,13 @@ class QuestionsController extends Controller
                 ]);
             }
         }
-
+        event(new \App\Events\QuizTemplateCreatedOrUpdated($question->id));
+        }
+        catch(\Exception $e)
+        {
+            \Log::error($e->getMessage());
+        }
+        
         return redirect()->route('questions.index');
     }
 
@@ -87,8 +95,8 @@ class QuestionsController extends Controller
             'topics' => \App\Topic::get()->pluck('title', 'id')->prepend('Please select', ''),
         ];
 
-        $question = Question::findOrFail($id);
-
+        $question = Question::with('options')->findOrFail($id);
+        
         return view('questions.edit', compact('question') + $relations);
     }
 

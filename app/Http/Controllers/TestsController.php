@@ -19,24 +19,15 @@ class TestsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($code = null)
     {
-        // $topics = Topic::inRandomOrder()->limit(10)->get();
-
-        $questions = Question::inRandomOrder()->limit(10)->get();
+        $quiz = \App\Quiz::where('code', $code)->firstOrFail();
+        $questions = Question::join('quiz_questions', 'questions.id', '=', 'quiz_questions.question_id')
+                ->where('quiz_id', $quiz->id)
+                ->simplePaginate(1);
         foreach ($questions as &$question) {
             $question->options = QuestionsOption::where('question_id', $question->id)->inRandomOrder()->get();
         }
-
-        /*
-        foreach ($topics as $topic) {
-            if ($topic->questions->count()) {
-                $questions[$topic->id]['topic'] = $topic->title;
-                $questions[$topic->id]['questions'] = $topic->questions()->inRandomOrder()->first()->load('options')->toArray();
-                shuffle($questions[$topic->id]['questions']['options']);
-            }
-        }
-        */
 
         return view('tests.create', compact('questions'));
     }

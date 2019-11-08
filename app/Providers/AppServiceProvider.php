@@ -15,6 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \DB::listen(function ($query) {
+             info('Query :: ' . $query->sql);
+             info('Bindings :: ' . json_encode($query->bindings));
+             info('Execution Time :: ' . $query->time);
+         });
         Question::deleting(function ($question) {
             $question->options()->delete();
         });

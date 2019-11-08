@@ -5,20 +5,22 @@
             data-keep-expanded="false"
             data-auto-scroll="true"
             data-slide-speed="200">
-
-            <li class="{{ $request->segment(1) == 'tests' ? 'active' : '' }}">
-                <a href="{{ route('tests.index') }}">
+            @if(Auth::user()->isAdmin())
+            <li class="{{ $request->segment(1) == 'quizzes' ? 'active' : '' }}">
+                <a href="{{ route('quizzes.index') }}">
                     <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.test.new')</span>
+                    <span class="title">Quiz Management</span>
                 </a>
             </li>
-
+            @endif
+            @if(Auth::user()->isAdmin())
             <li class="{{ $request->segment(1) == 'results' ? 'active' : '' }}">
                 <a href="{{ route('results.index') }}">
                     <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.results.title')</span>
+                    <span class="title">Results</span>
                 </a>
             </li>
+            @endif
 
             @if(Auth::user()->isAdmin())
             <li class="{{ $request->segment(1) == 'topics' ? 'active' : '' }}">
@@ -80,18 +82,6 @@
                 </a>
             </li>
         </ul>
-
-        <div class="text-center margin-top-20" style="color: white">
-            LaraQuiz is powered by
-            <br />
-            <a href="https://quickadminpanel.com" target="_blank">QuickAdminPanel.com</a>
-
-            <br /><br />
-
-            Feedback/questions?
-            <br />
-            <a href="mailto:info@laraveldaily.com" target="_blank">info@laraveldaily.com</a>
-        </div>
     </div>
 </div>
 {!! Form::open(['route' => 'auth.logout', 'style' => 'display:none;', 'id' => 'logout']) !!}

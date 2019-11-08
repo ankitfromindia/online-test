@@ -3,8 +3,8 @@
 @section('content')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1 class="text-center" style="color: white">LaraQuiz</h1>
-            <h3 class="text-center" style="color: white">How well do you know Laravel?</h3>
+            <h1 class="text-center" style="color: white">Online Assessment</h1>
+            <h3 class="text-center" style="color: white">Value First Digital Media Pvt Ltd</h3>
             <br />
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
@@ -69,7 +69,7 @@
                                         class="btn btn-default">
                                     Register
                                 </a>
-                                <br>
+                                {{--<br>
                                 <a href="{{ route('auth.password.reset') }}">Forgot password</a>
                                 <br>
                                 <br>
@@ -87,13 +87,13 @@
                                         class="btn btn-info">
                                     GitHub
                                 </a>
+                                --}}
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="text-center" style="color: white">Created by <a href="http://laraveldaily.com">Laravel Daily Team</a></div>
-            <div class="text-center" style="color: white">Powered by <a href="https://quickadminpanel.com">QuickAdminPanel.com</a></div>
+            
         </div>
     </div>
 @endsection

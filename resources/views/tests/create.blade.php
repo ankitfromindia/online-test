@@ -5,9 +5,7 @@
     {!! Form::open(['method' => 'POST', 'route' => ['tests.store']]) !!}
 
     <div class="panel panel-default">
-        <div class="panel-heading">
-            @lang('quickadmin.quiz')
-        </div>
+        
         <?php //dd($questions) ?>
     @if(count($questions) > 0)
         <div class="panel-body">
@@ -42,6 +40,7 @@
             </div>
         <?php $i++; ?>
         @endforeach
+        {{ $questions->links() }}
         </div>
     @endif
     </div>
