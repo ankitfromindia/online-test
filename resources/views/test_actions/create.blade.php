@@ -2,7 +2,9 @@
 
 @section('content')
     <h3 class="page-title">@lang('quickadmin.laravel-quiz')</h3>
-    <form method="POST" action="@php echo url()->full(); @endphp">
+
+{{ Form::open(array('url' => route('test_actions.next_action'), 'action' => 'POST')) }}
+    
     
 
 <?php  echo $message = Session::get('timer_out');echo $ldate = date('H:i:s');//dd($timer);?>
@@ -17,48 +19,41 @@
                                 </tr>
                             </table>
         <?php //dd($code) ?>
-    <input type="hidden" name="code" value='{{$code}}' >
-    <input type="hidden" name="page" value='@php if(isset($_GET["page"])) { echo $_GET["page"]; }else { echo "0";} @endphp' >
+    <input type="text" name="code" value='{{$code}}' >
+    <input type="text" name="currentQuestionNumber" value='{{$currentQuestionNumber}}' >
         <div class="panel-body">
-        <?php $i = 1; ?>
-        
-            @if ($i > 1 || $i<=$question_count->question_count) <hr />
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    <div class="form-group">
-                        <strong>Question {{ $i }}.<br />{!! nl2br($question->question_text) !!}</strong>
+        <div class="row">
+            <div class="col-xs-12 form-group">
+                <div class="form-group">
+                    <strong>Question {{ $currentQuestionNumber }}.<br />{!! nl2br($question->question_text) !!}</strong>
 
-                        @if ($question->code_snippet != '')
-                            <div class="code_snippet">{!! $question->code_snippet !!}</div>
-                        @endif
+                    @if ($question->code_snippet != '')
+                        <div class="code_snippet">{!! $question->code_snippet !!}</div>
+                    @endif
 
+                    <input
+                        type="text"
+                        name="question_id"
+                        value="{{ $question->id }}" id='qid'>
+                @foreach($question->options as $option)
+                    <br>
+                    <label class="radio-inline">
                         <input
-                            type="hidden"
-                            name="question[{{ $i }}]"
-                            value="{{ $question->id }}" id='qid'>
-                    @foreach($question->options as $option)
-                        <br>
-                        <label class="radio-inline">
-                            <input
-                                type="radio"
-                                name="answers[{{ $question->id }}]"
-                                value="{{ $option->id }}">
-                            {{ $option->option }}
-                        </label>
-                    @endforeach
-                    </div>
+                            type="radio"
+                            name="answer"
+                            value="{{ $option->id }}">
+                        {{ $option->option }}
+                    </label>
+                @endforeach
                 </div>
             </div>
-        <?php $i++; ?>
-        {{$i}}
-         @endif
-         {{2}}
- <td> <a href="http://127.0.0.1:8000/testactions/start/d1a62bebadf43fce4f8ef07b1d13249d?page={{ rand(1,$question_count->question_count) }}">Check Stock</a></td>
+        </div>
+        <td></td>
         </div>
     
     </div>
 
-    {!! Form::submit(trans('quickadmin.submit_quiz'),['onclick'=>'abc(test)'], ['class' => 'btn btn-danger']) !!}
+    {!! Form::submit(trans('quickadmin.submit_quiz'),['name'=> 'submit'], ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
 @stop
 

@@ -37,7 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('testactions/{code?}', ['uses' => 'TestActionsController@index', 'as' => 'test_actions.index']);
     Route::post('testactions/store', ['uses' => 'TestActionsController@store', 'as' => 'test_actions.store']);
     Route::post('testctions/thanks', ['uses' => 'TestActionsController@show', 'as' => 'test_actions.thanks']);
-    Route::any('testactions/next/{code?}/{page?}', ['uses' => 'TestActionsController@next', 'as' => 'test_actions.next']);
+//    Route::any('testactions/next/{code?}/{page?}', ['uses' => 'TestActionsController@next', 'as' => 'test_actions.next']);
+    Route::get('testactions/next/{code?}', ['uses' => 'TestActionsController@next', 'as' => 'test_actions.next']);
+
+    Route::post('testactions/nextAction', ['uses' => 'TestActionsController@nextAction', 'as' => 'test_actions.next_action']);
 
 
 
