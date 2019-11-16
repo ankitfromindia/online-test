@@ -12,6 +12,7 @@ use App\Question;
 use App\QuestionsOption;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTestRequest;
+use Carbon\Carbon;
 
 class TestActionsController extends Controller
 {
@@ -144,15 +145,61 @@ $startTime = session('exam_start_time');
 
 //strtotime(date('Y-m-d H:i:s'))
 $endTime =  date('Y-m-d H:i:s', strtotime('+' .$quiz->test_time. 'minutes', strtotime($startTime)));
-// print_r($endTime);
-// echo "</br>";
+//print_r($endTime);
+//echo "</br>";
 
 $timeRemaining = (strtotime($endTime) - strtotime($currentTime));
+
+
+
 $counterNumber = ceil($timeRemaining/60) -1;
+$counterNumberMinutes = explode(".",number_format($timeRemaining/60,2))[0];
+$counterNumberSeconds = explode(".",number_format($timeRemaining/60,2))[1];
+
+
+// print_r(number_format($timeRemaining/60,2));
+// echo "</br>";
+// print_r($counterNumberMinutes);
+// echo "</br>";
+// print_r($counterNumberSeconds);
+// echo "</br>";
+
+
+
+
+// //  $date = "2016-09-16 11:00:00";
+//   $cdatework = new Carbon($currentTime);
+//   $edatework = new Carbon($endTime);
+// //  $edatework = Carbon::createFromDate($endTime);
+//   //$now = Carbon::now();
+// //  $testdate = $edatework->diffInDays($sdatework);
+// //print_r($sdatework);
+// //print_r($cdatework);
+// $diff = $edatework->diffInMinutes($cdatework);
+// //print_r($diff);
+// //echo "<br>";
+// $diffs = $edatework->diffInSeconds($cdatework);
+
+// print_r($diffs->format('%h.%i'));
+//echo round(abs($timeRemaining) / 60,2). " minute";
+
+$start_date = new \DateTime($currentTime);
+$end_date = new \DateTime($endTime);
+$interval = $start_date->diff($end_date);
+$hours   = $interval->format('%h'); 
+$counterNumberMinutes = $interval->format('%i');
+$counterNumberSeconds = $interval->format('%s');
+// echo  'Diff. in minutes is: '.($hours * 60 + $minutes);
+// echo  'Diff. in seconds is: '.($seconds);
+// $counterNumberMinutes = explode(".",number_format($timeRemaining/60,2))[0];
+// $counterNumberSeconds = explode(".",number_format($timeRemaining/60,2))[1];
+
+//$timeRemaining = 180;
+//print_r();
 
 //echo "adasdsasa";print_r(session('exam_start_time'));
-// $timeRemaining = (strtotime($endTime) - $startTime);
-//print_r(round($timeRemaining/60));
+//$timeRemaining = (strtotime($endTime) - $startTime);
+//print_r($timeRemaining);
         // Set start time in sesssion if not exists
         // Subtraacxt test_time from start time and set this time in session
 //print_r($quiz->test_time);
@@ -163,7 +210,7 @@ $counterNumber = ceil($timeRemaining/60) -1;
         $questionId = $questionQuestions[$currentQuestionNumber-1]['question_id'];
         //print_r($questionId);exit();
         $question = \App\Question::where('id', $questionId)->get()->first();        
-        return view('test_actions.create', compact('question','quiz','question_count','code', 'currentQuestionNumber', 'counterNumber'));
+        return view('test_actions.create', compact('question','quiz','question_count','code', 'currentQuestionNumber', 'counterNumber', 'counterNumberMinutes', 'counterNumberSeconds'));
     }
 
     public function nextAction(Request $request){

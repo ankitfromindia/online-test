@@ -95,7 +95,8 @@ function abc(id) {
     <script>
         $(function(){
             $('#h_timer').countdowntimer({
-                minutes :{{$counterNumber}},
+                minutes :{{$counterNumberMinutes}},
+                seconds : {{$counterNumberSeconds}},
                 size : "lg",
                 expiryUrl : "{{ config('app.url') }}/expired/"+$("#code").val()
             });
