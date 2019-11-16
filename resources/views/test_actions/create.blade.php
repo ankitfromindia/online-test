@@ -2,7 +2,8 @@
 
 @section('content')
     <h3 class="page-title">@lang('quickadmin.laravel-quiz')</h3>
-    {!! Form::open(['method' => 'POST', 'id'=>'testsub', 'route' => ['tests.store']]) !!}
+    <form method="POST" action="@php echo url()->full(); @endphp">
+    
 
 <?php  echo $message = Session::get('timer_out');echo $ldate = date('H:i:s');//dd($timer);?>
     <div class="panel panel-default">
@@ -15,12 +16,13 @@
                                     <td colspan="4"><span id="h_timer"></span></td>
                                 </tr>
                             </table>
-        <?php //dd($quiz->test_time) ?>
-    @if(count($questions) > 0)
+        <?php //dd($code) ?>
+    <input type="hidden" name="code" value='{{$code}}' >
+    <input type="hidden" name="page" value='@php if(isset($_GET["page"])) { echo $_GET["page"]; }else { echo "0";} @endphp' >
         <div class="panel-body">
         <?php $i = 1; ?>
-        @foreach($questions as $question)
-            @if ($i > 1) <hr /> @endif
+        
+            @if ($i > 1 || $i<=$question_count->question_count) <hr />
             <div class="row">
                 <div class="col-xs-12 form-group">
                     <div class="form-group">
@@ -32,8 +34,8 @@
 
                         <input
                             type="hidden"
-                            name="questions[{{ $i }}]"
-                            value="{{ $question->id }}">
+                            name="question[{{ $i }}]"
+                            value="{{ $question->id }}" id='qid'>
                     @foreach($question->options as $option)
                         <br>
                         <label class="radio-inline">
@@ -48,13 +50,15 @@
                 </div>
             </div>
         <?php $i++; ?>
-        @endforeach
-        {{ $questions->links()}}
+        {{$i}}
+         @endif
+         {{2}}
+ <td> <a href="http://127.0.0.1:8000/testactions/start/d1a62bebadf43fce4f8ef07b1d13249d?page={{ rand(1,$question_count->question_count) }}">Check Stock</a></td>
         </div>
-    @endif
+    
     </div>
 
-    {!! Form::submit(trans('quickadmin.submit_quiz'), ['class' => 'btn btn-danger']) !!}
+    {!! Form::submit(trans('quickadmin.submit_quiz'),['onclick'=>'abc(test)'], ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
 @stop
 
@@ -69,6 +73,13 @@
     <script type="text/javascript">
          //window.location.reload();    
          //sessionStorage.clear()
+function abc(id) {
+  //event.preventDefault();
+  var href = document.getElementById("qid");
+  alert(href);
+  //var href = event.currentTarget.getAttribute('fmid')
+  window.location='http://www.shopeeon.com?ver=' + href;
+}
          var form = document.getElementById("testsub");
 
          document.getElementsByClassName("page-link").addEventListener("click", function () {

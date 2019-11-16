@@ -3,6 +3,9 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
+
+
+
 // Auth::routes();
 
 // Authentication Routes...
@@ -29,8 +32,19 @@ $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('auth.
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index');
+
+    Route::any('testactions/start/{code?}', ['uses' => 'TestActionsController@start', 'as' => 'test_actions.start']);
+    Route::get('testactions/{code?}', ['uses' => 'TestActionsController@index', 'as' => 'test_actions.index']);
+    Route::post('testactions/store', ['uses' => 'TestActionsController@store', 'as' => 'test_actions.store']);
+    Route::post('testctions/thanks', ['uses' => 'TestActionsController@show', 'as' => 'test_actions.thanks']);
+    Route::any('testactions/next/{code?}/{page?}', ['uses' => 'TestActionsController@next', 'as' => 'test_actions.next']);
+
+
+
+    Route::any('tests/start/{id}/{code?}', ['uses' => 'TestsController@start', 'as' => 'tests.start']);
     Route::get('tests/{code?}', ['uses' => 'TestsController@index', 'as' => 'tests.index']);
     Route::post('tests/store', ['uses' => 'TestsController@store', 'as' => 'tests.store']);
+    Route::post('tests/thanks', ['uses' => 'TestsController@show', 'as' => 'tests.thanks']);
     Route::resource('roles', 'RolesController');
     Route::post('roles_mass_destroy', ['uses' => 'RolesController@massDestroy', 'as' => 'roles.mass_destroy']);
     Route::resource('users', 'UsersController');

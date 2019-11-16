@@ -19,18 +19,34 @@ class TestsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($code = null)
+    public function index(Request $request, $code = null)
+    {
+        return view('tests.start', compact('code'));
+    }
+
+    /**
+     * Display a new test.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function start(Request $request, $code = null)
     {
         $quiz = \App\Quiz::where('code', $code)->firstOrFail();
+        //print_r($quiz);exit;
+        $timer=array();
+        $timer = $request->session()->put('timer_out', $quiz->test_time);
+        echo $session_id = session()->getId();
+        //Session::set('timer_out',$quiz->test_time );
         $questions = Question::join('quiz_questions', 'questions.id', '=', 'quiz_questions.question_id')
                 ->where('quiz_id', $quiz->id)
+                //->get();
                 ->simplePaginate(1);
         foreach ($questions as &$question) {
             $question->options = QuestionsOption::where('question_id', $question->id)->inRandomOrder()->get();
         }
 
-        return view('tests.create', compact('questions'));
-    }
+        return view('tests.create', compact('questions','quiz'));
+    }    
 
     /**
      * Store a newly solved Test in storage with results.
@@ -46,7 +62,7 @@ class TestsController extends Controller
             'user_id' => Auth::id(),
             'result'  => $result,
         ]);
-
+        
         foreach ($request->input('questions', []) as $key => $question) {
             $status = 0;
 
@@ -66,7 +82,19 @@ class TestsController extends Controller
         }
 
         $test->update(['result' => $result]);
-
-        return redirect()->route('results.show', [$test->id]);
+        return view('tests.thanks');
+        //return redirect()->route('tests.thanks', [$test->id]);
     }
+
+    /**
+     * Display a new test.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($code = null)
+    {
+
+        return view('tests.thanks', compact('code'));
+    }
+
 }

@@ -50,6 +50,7 @@ class QuizzesController extends Controller
         $category = Quiz::create([
             'user_id' => auth()->id(),
             'category' => $request->input('category'),
+            'test_time' => $request->input('test_time'),
             'code' => md5($request->input('category'))
         ]);
         $sections = array_combine($request->input('topic_id'), $request->input('no_of_questions'));
@@ -103,6 +104,9 @@ class QuizzesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //dd($request->all());
+        $quizzestime = Quiz::findOrFail($id);
+        $quizzestime->update($request->all());
         $sections = array_combine($request->input('topic_id'), $request->input('no_of_questions'));
         
         QuizSection::where('quiz_id', $id)->delete();
@@ -127,6 +131,22 @@ class QuizzesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
+
+    /**
+     * Delete all selected Question at once.
+     *
+     * @param Request $request
+     */
+    public function massDestroy(Request $request)
+    {
+        if ($request->input('ids')) {
+            $entries = Quiz::whereIn('id', $request->input('ids'))->get();
+
+            foreach ($entries as $entry) {
+                $entry->delete();
+            }
+        }
+    }    
 }
