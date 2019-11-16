@@ -115,6 +115,9 @@ class TestActionsController extends Controller
         $question_count =$totalQuestionsToPick;
         if(session('current_question') > $totalQuestionsToPick) {
             \App\User::where(['id'=>Auth::id()])->update(['status' => 0]);
+            session()->forget('test_id');
+            session()->forget('current_question');
+            session()->forget('exam_start_time');
             \Auth::logout();
             return view('test_actions.thanks');
         }
