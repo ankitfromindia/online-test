@@ -7,7 +7,10 @@
     
     
 
-<?php  echo $message = Session::get('timer_out');echo $ldate = date('H:i:s');//dd($timer);?>
+<?php
+//$message = session('timer_out');
+//$ldate = date('H:i:s');
+//dd($timer);?>
     <div class="panel panel-default">
         <table style="border:0px; margin-left: 80%">
                                 <tr>
@@ -19,8 +22,8 @@
                                 </tr>
                             </table>
         <?php //dd($code) ?>
-    <input type="text" name="code" value='{{$code}}' >
-    <input type="text" name="currentQuestionNumber" value='{{$currentQuestionNumber}}' >
+    <input type="hidden" name="code" id="code" value='{{$code}}' >
+    <input type="hidden" name="currentQuestionNumber" value='{{$currentQuestionNumber}}' >
         <div class="panel-body">
         <div class="row">
             <div class="col-xs-12 form-group">
@@ -32,7 +35,7 @@
                     @endif
 
                     <input
-                        type="text"
+                        type="hidden"
                         name="question_id"
                         value="{{ $question->id }}" id='qid'>
                 @foreach($question->options as $option)
@@ -92,10 +95,14 @@ function abc(id) {
     <script>
         $(function(){
             $('#h_timer').countdowntimer({
-                minutes :{{$message}},
-                size : "lg"
+                minutes :{{$counterNumber}},
+                size : "lg",
+                expiryUrl : "{{ config('app.url') }}/expired/"+$("#code").val()
             });
         });
+        // TIMEUP
+        // //timeUp
+        // opts.expiryUrl
     </script>
     <script type="text/javascript">
 

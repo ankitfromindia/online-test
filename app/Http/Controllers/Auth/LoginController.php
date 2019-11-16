@@ -47,4 +47,12 @@ class LoginController extends Controller
         $credentials = $request->only($this->username(), 'password');
         return array_add($credentials, 'status', '1');
     }
+
+    public function logoutTest() {
+        //\Illuminate\Http\Request $request
+        //\Auth::logout();
+        print_r($code);
+        exit();
+        //return redirect('/login');
+    }
 }

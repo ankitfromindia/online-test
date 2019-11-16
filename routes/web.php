@@ -11,6 +11,8 @@ Route::get('/', function () {
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');
 $this->post('login', 'Auth\LoginController@login')->name('auth.login');
+//http://127.0.0.1:8000/
+
 $this->post('logout', 'Auth\LoginController@logout')->name('auth.logout');
 $this->get('oauth2google', 'Auth\Oauth2Controller@oauth2google')->name('oauth2google');
 $this->get('googlecallback', 'Auth\Oauth2Controller@googlecallback')->name('googlecallback');
@@ -34,6 +36,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index');
 
     Route::any('testactions/start/{code?}', ['uses' => 'TestActionsController@start', 'as' => 'test_actions.start']);
+
+    Route::get('expired/{code}', ['uses' => 'TestActionsController@sessionExpired', 'as' => 'test_actions.expired']);
+    
     Route::get('testactions/{code?}', ['uses' => 'TestActionsController@index', 'as' => 'test_actions.index']);
     Route::post('testactions/store', ['uses' => 'TestActionsController@store', 'as' => 'test_actions.store']);
     Route::post('testctions/thanks', ['uses' => 'TestActionsController@show', 'as' => 'test_actions.thanks']);
@@ -41,8 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('testactions/next/{code?}', ['uses' => 'TestActionsController@next', 'as' => 'test_actions.next']);
 
     Route::post('testactions/nextAction', ['uses' => 'TestActionsController@nextAction', 'as' => 'test_actions.next_action']);
-
-
+//    Route::get('sessionExpired', ['uses' => 'TestActionsController@sessionExpired', 'as' => 'test_actions.session_expired']);    
 
     Route::any('tests/start/{id}/{code?}', ['uses' => 'TestsController@start', 'as' => 'tests.start']);
     Route::get('tests/{code?}', ['uses' => 'TestsController@index', 'as' => 'tests.index']);

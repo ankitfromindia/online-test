@@ -17,7 +17,9 @@
 
     <div class="page-container">
         <div class="page-sidebar-wrapper">
+            @if(!is_null(Auth::user()))
             @include('partials.sidebar')
+            @endif
         </div>
 
         <div class="page-content-wrapper">
