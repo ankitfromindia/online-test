@@ -9,7 +9,7 @@
             <li class="{{ $request->segment(1) == 'quizzes' ? 'active' : '' }}">
                 <a href="{{ route('quizzes.index') }}">
                     <i class="fa fa-gears"></i>
-                    <span class="title">Quiz Management</span>
+                    <span class="title">Test Management</span>
                 </a>
             </li>
             @endif

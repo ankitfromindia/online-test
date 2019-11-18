@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="page-title">Quiz Management</h3>
+    <h3 class="page-title">Test Management</h3>
 
     <p>
         <a href="{{ route('quizzes.create') }}" class="btn btn-success">@lang('quickadmin.add_new')</a>
@@ -31,7 +31,7 @@
                                 <td></td>
                                 <td>{{ $q->category}}</td>
                                 <td>{{ $q->total_questions}}</td>
-                                <td><a href="{{url('/tests/' . $q->code)}}">{{url('/tests/' . $q->code)}}</a></td>
+                                <td><a href="{{url('/testactions/' . $q->code)}}">{{url('/testactions/' . $q->code)}}</a></td>
                                 <td>
                                     <a href="{{ route('quizzes.edit',[$q->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.edit')</a>
                                     <a href="{{ route('quizzes.clone',[$q->id]) }}" class="btn btn-xs btn-info">Clone</a>

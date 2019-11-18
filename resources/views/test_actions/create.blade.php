@@ -68,22 +68,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url('quickadmin/css') }}/jquery.countdownTimer.css" />
     <script src="https://cdnjs.cloudflare.com//ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
-    <script type="text/javascript">
-         //window.location.reload();    
-         //sessionStorage.clear()
-function abc(id) {
-  //event.preventDefault();
-  var href = document.getElementById("qid");
-  alert(href);
-  //var href = event.currentTarget.getAttribute('fmid')
-  window.location='http://www.shopeeon.com?ver=' + href;
-}
-         var form = document.getElementById("testsub");
 
-         document.getElementsByClassName("page-link").addEventListener("click", function () {
-         form.submit();
-});
-    </script>
     <script>
         $('.datetime').datetimepicker({
             autoclose: true,
