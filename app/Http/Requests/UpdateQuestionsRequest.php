@@ -27,8 +27,6 @@ class UpdateQuestionsRequest extends FormRequest
             'topic_id' => 'required',
             'question_text' => 'required',
             
-            'answer_explanation' => 'required',
-            
         ];
     }
 }

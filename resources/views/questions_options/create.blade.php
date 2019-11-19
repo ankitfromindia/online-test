@@ -8,12 +8,22 @@
         <div class="panel-heading">
             @lang('quickadmin.create')
         </div>
-        
+        <?php   $url_segment = \Request::segment(3); ?>
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
                     {!! Form::label('question_id', 'question*', ['class' => 'control-label']) !!}
-                    {!! Form::select('question_id', $questions, old('question_id'), ['class' => 'form-control']) !!}
+
+                    <select class="form-control" id="question_id" name="question_id">
+                          @foreach ($questions as $k=>$v)
+                          @if($k == $url_segment)
+                                <option value="{{ $k }}" {{ ( $k == $url_segment) ? 'selected' : ''}}> {{ $v }} 
+                          </option>
+                          @endif
+                            
+                            @endforeach  
+                    </select>
+                    {{-- Form::select('question_id', $questions, old($url_segment), ['class' => 'form-control']) --}}
                     <p class="help-block"></p>
                     @if($errors->has('question_id'))
                         <p class="help-block">

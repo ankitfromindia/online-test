@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h1 class="text-center" style="color: white">Online Assessment</h1>
-            <h3 class="text-center" style="color: white">Value First Digital Media Pvt Ltd</h3>
+            <h3 class="text-center" style="color: white">ValueFirst Digital Media Pvt Ltd</h3>
             <br />
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>

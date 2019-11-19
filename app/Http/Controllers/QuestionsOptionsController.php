@@ -36,7 +36,8 @@ class QuestionsOptionsController extends Controller
         $relations = [
             'questions' => \App\Question::get()->pluck('question_text', 'id')->prepend('Please select', ''),
         ];
-
+        //return redirect()->route('questions.index');
+//echo 9999;exit;
         return view('questions_options.create', $relations);
     }
 
@@ -48,9 +49,10 @@ class QuestionsOptionsController extends Controller
      */
     public function store(StoreQuestionsOptionsRequest $request)
     {
+
         QuestionsOption::create($request->all());
 
-        return redirect()->route('questions_options.index');
+        return redirect()->route('questions.show',[$request->question_id]);
     }
 
 
@@ -83,7 +85,7 @@ class QuestionsOptionsController extends Controller
         $questionsoption = QuestionsOption::findOrFail($id);
         $questionsoption->update($request->all());
 
-        return redirect()->route('questions_options.index');
+        return redirect()->route('questions.show',[$request->question_id]);
     }
 
 
@@ -111,12 +113,14 @@ class QuestionsOptionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
+        $questions_data = QuestionsOption::findOrFail($id);
+        $ques_id = $questions_data->question_id;
         $questionsoption = QuestionsOption::findOrFail($id);
         $questionsoption->delete();
-
-        return redirect()->route('questions_options.index');
+        
+        return redirect()->route('questions.show',[$ques_id]);
     }
 
     /**

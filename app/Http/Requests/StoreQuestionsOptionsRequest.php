@@ -23,7 +23,7 @@ class StoreQuestionsOptionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'question_id' => 'required',
+            
             'option' => 'required',
         ];
     }

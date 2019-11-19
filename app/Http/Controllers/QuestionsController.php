@@ -23,8 +23,30 @@ class QuestionsController extends Controller
     public function index()
     {
         $questions = Question::all();
+        $relations = [
+            'topics' => \App\Topic::get()->pluck('title', 'id')->prepend('Please select', ''),
+        ];
 
-        return view('questions.index', compact('questions'));
+        return view('questions.index', compact('questions') + $relations);
+    }
+
+        /**
+     * Display a listing of Question.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function topicShow(Request $request)
+    {
+//print_r($request->all('mainid'));
+        //echo 8888;exit;
+        $questions = Question::whereIn('topic_id', $request->all('topic_id'))->get();
+        //print_r($questions);
+        $relations = [
+            'topics' => \App\Topic::get()->pluck('title', 'id')->prepend('Please select', ''),
+        ];
+
+        return view('questions.index', compact('questions') + $relations);
+
     }
 
     /**
@@ -57,8 +79,8 @@ class QuestionsController extends Controller
      */
     public function store(StoreQuestionsRequest $request)
     {
-        
-        try
+
+         try
         {
         $question = Question::create($request->all());
 
@@ -79,7 +101,15 @@ class QuestionsController extends Controller
             \Log::error($e->getMessage());
         }
         
-        return redirect()->route('questions.index');
+        switch($request->submitbutton) {
+
+            case 'Save': 
+                return redirect()->route('questions.index');
+            break;
+            case 'Save and Continue':     
+                return redirect()->route('questions.create', ['id'=>$request->topic_id]);
+            break;
+        }      
     }
 
 
@@ -129,8 +159,8 @@ class QuestionsController extends Controller
         ];
 
         $question = Question::findOrFail($id);
-
-        return view('questions.show', compact('question') + $relations);
+        $questions_options = QuestionsOption::where('question_id', $id)->get();
+        return view('questions.show', compact('question','questions_options') + $relations);
     }
 
 

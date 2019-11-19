@@ -13,7 +13,20 @@
         </div>
 
         <div class="panel-body">
-            <table class="table table-bordered table-striped {{ count($questions) > 0 ? 'datatable' : '' }} dt-select">
+            <div class="row" align="left">
+                {!! Form::label('topic_id', 'Topic*', ['class' => 'control-label']) !!}
+            </div>
+                <div class="col-xs-12 form-group" align="left">
+                    
+                    {!! Form::select('topic_id', $topics, old('topic_id'), ['class' => 'form-control','style'=>'width:128px;margin-left: 36px;margin-top: -29px;']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('topic_id'))
+                        <p class="help-block">
+                            {{ $errors->first('topic_id') }}
+                        </p>
+                    @endif
+                </div>
+            <table style="margin-top: -51px;" class="table table-bordered table-striped {{ count($questions) > 0 ? 'datatable' : '' }} dt-select">
                 <thead>
                     <tr>
                         <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
@@ -55,7 +68,21 @@
 @stop
 
 @section('javascript')
+<style>
+.dataTables_filter {
+  margin-top: -46px;
+
+} 
+</style>
     <script>
         window.route_mass_crud_entries_destroy = '{{ route('questions.mass_destroy') }}';
+    </script>
+    <script>
+
+        $("#topic_id").on('change', function(e) {
+
+            window.location="/topic_show?topic_id="+this.value
+        });
+
     </script>
 @endsection

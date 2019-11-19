@@ -22,7 +22,7 @@
 
             <p>&nbsp;</p>
 
-            <a href="{{ route('questions_options.index') }}" class="btn btn-default">@lang('quickadmin.back_to_list')</a>
+            <a href="{{ route('questions.show',$questions_option->question->id) }}" class="btn btn-default">@lang('quickadmin.back_to_list')</a>
         </div>
     </div>
 @stop

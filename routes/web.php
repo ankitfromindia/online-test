@@ -42,11 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('testactions/{code?}', ['uses' => 'TestActionsController@index', 'as' => 'test_actions.index']);
     Route::post('testactions/store', ['uses' => 'TestActionsController@store', 'as' => 'test_actions.store']);
     Route::post('testctions/thanks', ['uses' => 'TestActionsController@show', 'as' => 'test_actions.thanks']);
-//    Route::any('testactions/next/{code?}/{page?}', ['uses' => 'TestActionsController@next', 'as' => 'test_actions.next']);
     Route::get('testactions/next/{code?}', ['uses' => 'TestActionsController@next', 'as' => 'test_actions.next']);
 
-    Route::post('testactions/nextAction', ['uses' => 'TestActionsController@nextAction', 'as' => 'test_actions.next_action']);
-//    Route::get('sessionExpired', ['uses' => 'TestActionsController@sessionExpired', 'as' => 'test_actions.session_expired']);    
+    Route::post('testactions/nextAction', ['uses' => 'TestActionsController@nextAction', 'as' => 'test_actions.next_action']);   
 
     Route::any('tests/start/{id}/{code?}', ['uses' => 'TestsController@start', 'as' => 'tests.start']);
     Route::get('tests/{code?}', ['uses' => 'TestsController@index', 'as' => 'tests.index']);
@@ -60,10 +58,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('topics', 'TopicsController');
     Route::post('topics_mass_destroy', ['uses' => 'TopicsController@massDestroy', 'as' => 'topics.mass_destroy']);
     Route::resource('questions', 'QuestionsController');
+    Route::any('topic_show/{topic_id?}', ['uses' => 'QuestionsController@topicShow', 'as' => 'questions.topicShow']);
+    Route::get('questions/create/{topic_id?}', ['uses' => 'QuestionsController@create', 'as' => 'questions.create']);
     Route::post('questions_mass_destroy', ['uses' => 'QuestionsController@massDestroy', 'as' => 'questions.mass_destroy']);
     Route::resource('questions_options', 'QuestionsOptionsController');
     Route::post('questions_options_mass_destroy', ['uses' => 'QuestionsOptionsController@massDestroy', 'as' => 'questions_options.mass_destroy']);
     Route::resource('results', 'ResultsController');
+
+    Route::get('questions_options/create/{question_id?}', ['uses' => 'QuestionsOptionsController@create', 'as' => 'questions_options.create']);
     Route::post('results_mass_destroy', ['uses' => 'ResultsController@massDestroy', 'as' => 'results.mass_destroy']);
     Route::resource('quizzes', 'QuizzesController');
     Route::get('quizzes/section/add', 'QuizzesController@addMoreSection');

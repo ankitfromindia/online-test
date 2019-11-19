@@ -5,42 +5,7 @@
             data-keep-expanded="false"
             data-auto-scroll="true"
             data-slide-speed="200">
-            @if(Auth::user()->isAdmin())
-            <li class="{{ $request->segment(1) == 'quizzes' ? 'active' : '' }}">
-                <a href="{{ route('quizzes.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">Test Management</span>
-                </a>
-            </li>
-            @endif
-            @if(Auth::user()->isAdmin())
-            <li class="{{ $request->segment(1) == 'results' ? 'active' : '' }}">
-                <a href="{{ route('results.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">Results</span>
-                </a>
-            </li>
-            @endif
-
-            @if(Auth::user()->isAdmin())
-            <li class="{{ $request->segment(1) == 'topics' ? 'active' : '' }}">
-                <a href="{{ route('topics.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.topics.title')</span>
-                </a>
-            </li>
-            <li class="{{ $request->segment(1) == 'questions' ? 'active' : '' }}">
-                <a href="{{ route('questions.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.questions.title')</span>
-                </a>
-            </li>
-            <li class="{{ $request->segment(1) == 'questions_options' ? 'active' : '' }}">
-                <a href="{{ route('questions_options.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.questions-options.title')</span>
-                </a>
-            </li>
+             @if(Auth::user()->isAdmin())
             <li>
                 <a href="#">
                     <i class="fa fa-users"></i>
@@ -73,8 +38,49 @@
                         </a>
                     </li>
                 </ul>
+            </li>     
+            @endif     
+
+            @if(Auth::user()->isAdmin())
+            <li class="{{ $request->segment(1) == 'topics' ? 'active' : '' }}">
+                <a href="{{ route('topics.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span class="title">@lang('quickadmin.topics.title')</span>
+                </a>
+            </li>
+            <li @if($request->segment(1) == 'questions' || $request->segment(1) == 'questions_options') class="active" @else class='' @endif>
+                <a href="{{ route('questions.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span class="title">@lang('quickadmin.questions.title')</span>
+                </a>
+            </li>
+<!--
+            <li class="{{ $request->segment(1) == 'questions_options' ? 'active' : '' }}">
+                <a href="{{ route('questions_options.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span class="title">@lang('quickadmin.questions-options.title')</span>
+                </a>
+            </li>
+-->
+            @endif              
+            @if(Auth::user()->isAdmin())
+            <li class="{{ $request->segment(1) == 'quizzes' ? 'active' : '' }}">
+                <a href="{{ route('quizzes.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span class="title">Test Management</span>
+                </a>
             </li>
             @endif
+            @if(Auth::user()->isAdmin())
+            <li class="{{ $request->segment(1) == 'results' ? 'active' : '' }}">
+                <a href="{{ route('results.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span class="title">Results</span>
+                </a>
+            </li>
+            @endif
+
+
             <li>
                 <a href="#logout" onclick="$('#logout').submit();">
                     <i class="fa fa-arrow-left"></i>

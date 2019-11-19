@@ -3,7 +3,7 @@
         <div class="navbar-header">
             <a href="{{ url('/') }}"
                class="navbar-brand">
-                Value First
+                ValueFirst
             </a>
         </div>
         <a href="javascript:;"
