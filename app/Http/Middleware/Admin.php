@@ -10,7 +10,7 @@ class Admin
 {
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!Auth::user()->isAdmin()) {
+        if (!Auth::user()->isAdmin() && !Auth::user()->isManager()) {
             return redirect()->back();
         }
 

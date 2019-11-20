@@ -8,14 +8,14 @@
         <div class="panel-heading">
             @lang('quickadmin.create')
         </div>
-<?php  $url_segment = \Request::segment(3); ?>
+<?php  $topicid = \Request::segment(3);  $expid = \Request::get('exp_id'); ?>
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-4 form-group">
                     {!! Form::label('topic_id', 'Topic*', ['class' => 'control-label']) !!}
                     <select class="form-control" id="topic_id" name="topic_id">
                             @foreach ($topics as $k=>$v)
-                                <option value="{{ $k }}" {{ ( $k == $url_segment) ? 'selected' : ''}}> {{ $v }} 
+                                <option value="{{ $k }}" {{ ( $k == $topicid) ? 'selected' : ''}}> {{ $v }} 
                             </option>
                             @endforeach  
                     </select>
@@ -27,6 +27,8 @@
                         </p>
                     @endif
                 </div>
+
+               
             </div>
             <div class="row">
                 <div class="col-xs-8 form-group">

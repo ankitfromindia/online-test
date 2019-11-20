@@ -47,8 +47,7 @@ class TestActionsController extends Controller
         $qIds = [];
         foreach($questionSections as $questionSection) {
             $topicId = $questionSection->topic_id;
-            $topicQuestions = \App\Question::where('topic_id', $topicId)->select('id')->get()->toArray();
-//            print_r($topicQuestions);
+            $topicQuestions = \App\Question::where(['topic_id'=>$topicId])->select('id')->get()->toArray();
             if(count($topicQuestions)) {
                 shuffle($topicQuestions);
                 //$qIds[$topicId] = array_slice($topicQuestions, 0, $questionSection->question_count);
@@ -110,7 +109,7 @@ class TestActionsController extends Controller
             $totalQuestionsToPick = $totalQuestionsToPick+$questionSection['question_count'];
         }
 
-        $questionQuestions = \App\QuizQuestion::where(['quiz_id'=> $quiz->id,'user_id'=> Auth::id()])->orderby('id', 'desc')->limit($totalQuestionsToPick)->get()->toArray();
+        $questionQuestions = \App\QuizQuestion::where(['quiz_id'=> $quiz->id])->orderby('id', 'desc')->limit($totalQuestionsToPick)->get()->toArray();
 
 
         $question_count =$totalQuestionsToPick;

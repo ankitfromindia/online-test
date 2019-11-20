@@ -29,7 +29,6 @@ class QuizzesController extends Controller
     public function create()
     {
         $topics = \App\Topic::get()->pluck('title', 'id')->prepend('Please select', '');
-
         return view('quizzes.create', compact('topics') + ['visible' => false]);
     }
 
@@ -59,7 +58,7 @@ class QuizzesController extends Controller
             QuizSection::create([
                'quiz_id' => $category->id,
                 'topic_id' => $topicId,
-                'question_count' => $noOfQuestions
+                'question_count' => $noOfQuestions,
             ]);
         }
         
@@ -92,7 +91,7 @@ class QuizzesController extends Controller
         $quiz = Quiz::findOrFail($id);
         $sections = QuizSection::where('quiz_id', $id)->get();
         
-        return view('quizzes.edit', compact('quiz', 'topics', 'sections') + ['visible' => true]);
+        return view('quizzes.edit', compact('quiz', 'topics','sections') + ['visible' => true]);
     }
 
     /**

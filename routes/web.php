@@ -70,4 +70,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('quizzes', 'QuizzesController');
     Route::get('quizzes/section/add', 'QuizzesController@addMoreSection');
     Route::get('quizzes/clone/{code}', ['uses' => 'QuizzesController@clone', 'as' => 'quizzes.clone']);
+        Route::post('quizzes_mass_destroy', ['uses' => 'QuizzesController@massDestroy', 'as' => 'quizzes.mass_destroy']);
 });

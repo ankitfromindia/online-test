@@ -11,7 +11,7 @@
 
         <div class="panel-body">
              <div class="row">
-                <div class="col-xs-12 form-group">
+                <div class="col-xs-4 form-group">
                     {!! Form::label('category', 'Category*', ['class' => 'control-label']) !!}
                     {!! Form::text('category', old('category'), ['class' => 'form-control']) !!}
                     <p class="help-block"></p>
@@ -21,9 +21,9 @@
                         </p>
                     @endif
                 </div>
-            </div>
+            
              <div class="row">
-                <div class="col-xs-12 form-group">
+                <div class="col-xs-4 form-group">
                     {!! Form::label('test_time', 'Time*', ['class' => 'control-label']) !!}
                     {!! Form::text('test_time', old('test_time'), ['class' => 'form-control']) !!}
                     <p class="help-block"></p>
@@ -33,7 +33,8 @@
                         </p>
                     @endif
                 </div>
-            </div>            
+            </div> 
+                     
             <fieldset>
                 <legend>Sections <span class="align-reverse btn btn-warning" id="add_more">Add More</span></legend>
             

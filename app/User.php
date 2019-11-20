@@ -66,4 +66,15 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function isManager()
+    {
+        foreach ($this->role()->get() as $role) {
+            if ($role->id == 4) {
+                return true;
+            }
+        }
+
+        return false;
+    }    
 }

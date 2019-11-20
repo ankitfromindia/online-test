@@ -5,6 +5,10 @@
             data-keep-expanded="false"
             data-auto-scroll="true"
             data-slide-speed="200">
+            <div style="margin-top: 3%;margin-bottom: 3%;">        
+                <span class="title" style="font-size: 15px;color: white;margin-left: 7%;margin-bottom: 7%;"> Welcome  </span><span style="font-size: 15px;color: Red;">{{Auth::user()->name}}</span>
+            </div>        
+                 
              @if(Auth::user()->isAdmin())
             <li>
                 <a href="#">
@@ -41,7 +45,7 @@
             </li>     
             @endif     
 
-            @if(Auth::user()->isAdmin())
+            @if(Auth::user()->isAdmin() || Auth::user()->isManager())
             <li class="{{ $request->segment(1) == 'topics' ? 'active' : '' }}">
                 <a href="{{ route('topics.index') }}">
                     <i class="fa fa-gears"></i>
@@ -63,7 +67,7 @@
             </li>
 -->
             @endif              
-            @if(Auth::user()->isAdmin())
+            @if(Auth::user()->isAdmin() || Auth::user()->isManager())
             <li class="{{ $request->segment(1) == 'quizzes' ? 'active' : '' }}">
                 <a href="{{ route('quizzes.index') }}">
                     <i class="fa fa-gears"></i>
@@ -71,7 +75,7 @@
                 </a>
             </li>
             @endif
-            @if(Auth::user()->isAdmin())
+            @if(Auth::user()->isAdmin() || Auth::user()->isManager())
             <li class="{{ $request->segment(1) == 'results' ? 'active' : '' }}">
                 <a href="{{ route('results.index') }}">
                     <i class="fa fa-gears"></i>

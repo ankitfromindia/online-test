@@ -37,10 +37,7 @@ class QuestionsController extends Controller
      */
     public function topicShow(Request $request)
     {
-//print_r($request->all('mainid'));
-        //echo 8888;exit;
         $questions = Question::whereIn('topic_id', $request->all('topic_id'))->get();
-        //print_r($questions);
         $relations = [
             'topics' => \App\Topic::get()->pluck('title', 'id')->prepend('Please select', ''),
         ];
@@ -59,6 +56,7 @@ class QuestionsController extends Controller
         $relations = [
             'topics' => \App\Topic::get()->pluck('title', 'id')->prepend('Please select', ''),
         ];
+
 
         $correct_options = [
             'option1' => 'Option #1',

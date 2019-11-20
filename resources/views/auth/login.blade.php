@@ -65,10 +65,10 @@
                                         class="btn btn-primary">
                                     Login
                                 </button>
-                                <a href="{{ route('auth.register') }}"
+                               <!-- <a href="{{ route('auth.register') }}"
                                         class="btn btn-default">
                                     Register
-                                </a>
+                                </a>-->
                                 {{--<br>
                                 <a href="{{ route('auth.password.reset') }}">Forgot password</a>
                                 <br>
